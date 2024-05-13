@@ -1,0 +1,64 @@
+#app {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .card {
+    height: 600px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+
+    margin-bottom: 30px;
+  }
+
+  .tags{
+    font-weight: bold;
+  }
+  
+  .disponivel{
+    font-weight: bold;
+    color: green;
+  }
+
+  .desconto{
+    font-weight: bold;
+  }
+  
+  .totaldesconto{
+    font-weight: bold;
+    color: green;
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+  .card .card-imagem {
+    width: 100%;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .card .card-imagem img {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
