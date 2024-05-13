@@ -72,6 +72,9 @@ function gerarCardProdutos(produtoObjeto){
                 <span> Tags: </span>
                 ${produtoObjeto.imprimeTags()}
               </div>
+              <p class="avaliacao">
+              Avaliacao: ${produtoObjeto.avaliacao}
+            </p>
               <div class="caracteristicas">
                 <span> Caracteristicas do Produto: </span>
                 ${produtoObjeto.imprimeCaracteristicas()}
