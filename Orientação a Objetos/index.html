@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orientação a Objetos</title>
+</head>
+<body>
+    <script>
+
+        class Carro {
+            constructor(marca, modelo, ano, cor, ligado) {
+                this.marca = marca;
+                this.modelo = modelo;
+                this.ano = ano;
+                this.cor = cor;
+                this.ligado = ligado;
+                console.log("constructor iniciado");
+            }
+
+            ligar() {
+                this.ligado = true;
+                console.log("O carro está ligado");
+            }
+
+            desligar() {
+                this.ligado = false;
+                console.log("O carro está desligado");
+            }
+
+            mostrarCor() {
+                console.log(`Meu carro é ${this.cor}`);
+            }
+
+            info() {
+                let estadoCarro = this.ligado ? "ligado" : "desligado";
+                console.log(`Meu carro é ${this.marca}, modelo ${this.modelo}, ano ${this.ano}, cor ${this.cor} e ele está ${estadoCarro}`);
+            }
+        }
+
+        let meuCarro = new Carro("volkswagen", "gol", 2014, "prata", false);
+        meuCarro.ligar();
+        meuCarro.desligar();
+        meuCarro.mostrarCor();
+        meuCarro.info();
+
+    </script>
+</body>
+</html>
