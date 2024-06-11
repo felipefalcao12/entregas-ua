@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+            class Pessoa{
+                #nome;
+                #idade;
+                #email;
+            
+                constructor (nome, idade, email) {
+                    this.#nome = nome;
+                    this.#idade = idade;
+                    this.#email = email;
+                }
+            
+            getEmail(){
+                return this.#email;
+            }
+
+            setEmail(email){
+                const isEmail = email.includes("@") && email.includes(".")
+                if (isEmail) {
+                    this.#email = email;
+                    console.log("esse email existe")
+                    return this.#email;
+                }
+                console.log("email invalido ")
+                throw new Error("Email inválido. Tente novamente.");
+
+            }
+
+            getIdade(){
+                return this.#idade;
+            }
+
+            setIdade(idade){
+                if (idade>0){
+                    this.#idade = idade;
+                    console.log("tem idade")
+                    return this.#idade
+                }
+                console.log("nao tem idade")
+            }
+
+            getNome(){
+                return this.#nome;
+            }
+
+            setNome(nome){
+
+                try {
+                    let isNome = true;
+                    const nomeArray = nome.split("")
+                    nomeArray.forEach((char)=>{
+                        if (!isNaN(char)){
+                            isNome = false;
+                            console.log("o nome possui numeros")
+                            return;
+                        }
+                    })
+                    if (isNome) {
+                        this.#nome = nome;
+                        return this.#nome;
+                        console.log("nao tem numero")
+                    }
+                    throw new Error("Email inválido. Tente novamente.");
+                } catch (error) {
+                    console.error(error.message)
+                }
+
+            }
+
+        }
+
+
+        pessoa1 = new Pessoa("felipe", 24, "felipefalcao2000@hotmail.com")
+        pessoa2 = new Pessoa("joao", 10, "joaohotmail")
+
+        console.log(pessoa1.getEmail())
+        console.log(pessoa1.getNome())
+        console.log(pessoa1.getIdade())
+        console.log(pessoa1.setEmail("felipefalcao2000@hotmail.com"))
+        console.log(pessoa2.getNome())
+        console.log(pessoa2.getEmail())
+        console.log(pessoa2.setIdade("10"))
+        console.log(pessoa2.setEmail("joaohotmail"))
+
+
+
+
+    </script>
+</body>
+</html>
