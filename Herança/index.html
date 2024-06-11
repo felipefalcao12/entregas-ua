@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herança</title>
+</head>
+<body>
+    <script>
+        class DispositivoEletronico {
+            #marca;
+            #modelo;
+            #ano;
+
+            constructor(marca, modelo, ano) {
+                this.#marca = marca;
+                this.#modelo = modelo;
+                this.#ano = ano;
+            }
+
+            descricaoDispositivo() {
+                console.log(`dispositivo: ${this.#marca}, modelo: ${this.#modelo}, ano: ${this.#ano}`);
+            }
+        }
+
+        class Smartphone extends DispositivoEletronico {
+            #sistemaOperacional;
+            #tamanhoTela;
+
+            constructor(marca, modelo, ano, sistemaOperacional, tamanhoTela) {
+                super(marca, modelo, ano);
+                this.#sistemaOperacional = sistemaOperacional;
+                this.#tamanhoTela = tamanhoTela;
+            }
+
+            descricaoSmartphone() {
+                console.log(`smartphone: ${this.#marca}, modelo: ${this.#modelo}, ano: ${this.#ano}, sistema operacional: ${this.#sistemaOperacional}, tamanho da tela: ${this.#tamanhoTela} polegadas`);
+            }
+        }
+
+        class Laptop extends DispositivoEletronico {
+            #processador;
+            #memoriaRAM;
+
+            constructor(marca, modelo, ano, processador, memoriaRAM) {
+                super(marca, modelo, ano);
+                this.#processador = processador;
+                this.#memoriaRAM = memoriaRAM;
+            }
+
+            descricaoLaptop() {
+                console.log(`notebook: ${this.#marca} ${this.#modelo}, ano: ${this.#ano}, processador: ${this.#processador},  memória RAM: ${this.#memoriaRAM} GB`);
+            }
+        }
+
+        class Tablet extends DispositivoEletronico {
+            #armazenamento;
+            #suporteACaneta;
+
+            constructor(marca, modelo, ano, armazenamento, suporteACaneta) {
+                super(marca, modelo, ano);
+                this.#armazenamento = armazenamento;
+                this.#suporteACaneta = suporteACaneta;
+            }
+
+            descricaoTablet() {
+                console.log(`tablet: ${this.#marca} ${this.#modelo}, ano: ${this.#ano}, armazenamento: ${this.#armazenamento} GB, suporte a caneta: ${this.#suporteACaneta ? 'Sim' : 'Não'}`);
+            }
+        }
+
+        const meuSmartphone = new Smartphone("Apple", "iPhone 13", 2021, "iOS", 6.1);
+        const meuLaptop = new Laptop("Dell", "XPS 13", 2020, "Intel i7", 16);
+        const meuTablet = new Tablet("Samsung", "Galaxy Tab S7", 2021, 128, true);
+
+        meuSmartphone.descricaoSmartphone();
+        meuLaptop.descricaoLaptop();
+        meuTablet.descricaoTablet();
+    </script>
+</body>
+</html>
