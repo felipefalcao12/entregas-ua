@@ -1,98 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
+ 
+ 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+ 
+ 
 <body>
+ 
+ 
     <script>
-            class Pessoa{
-                #nome;
-                #idade;
-                #email;
+ 
+ 
+        const NotificationType = {
+            Success: "Success",
+            Warning: "Warning"
+        }
+ 
+ 
+        class System {
+            #name;
+            #users;
+ 
+ 
+            constructor(name) {
+                this.#name = name;
+                this.#users = [];
+            }
+ 
+ 
+            addUser(user) {
+                this.#users.push(user);
+            }
+ 
+ 
+            showUsers() {
+                this.#users.forEach(user => {
+                    user.showInfo();
+                });
+            }
+ 
+ 
+            removeInactiveUsers() {
+              const oneMinuteAgo = new Date(Date.now() - 60000);
+                console.log(removendo usuario inativos a mais de  ${oneMinuteAgo});
+                
+                const initialCount = this.#users.length;
+                
+                this.#users = this.#users.filter(user => {
+                    const lastActivityDate = new Date(user.getLastActivity());
+                    return lastActivityDate > oneMinuteAgo;
+                });
+ 
+ 
+                const removedCount = initialCount - this.#users.length;
+                console.log(Foram removidos ${removedCount} usuários);
+            }
+ 
+ 
+            notifyAllUsers(message, typeMessage) {
+                this.#users.forEach(user => {
+                    user.notifications.pushNotification(message, typeMessage, user.getId(), user.getNome());
+                    user.getnotifications().showNotifications();
+                });
+ 
+ 
+                
+            }
             
-                constructor (nome, idade, email) {
-                    this.#nome = nome;
-                    this.#idade = idade;
-                    this.#email = email;
-                }
-            
-            getEmail(){
-                return this.#email;
+        }
+ 
+ 
+        class User {
+            #id;
+            #nome;
+            #email;
+            #cpf;
+            #login;
+            #password;
+            notifications;
+            #lastActivity;
+ 
+ 
+            constructor(nome, email, cpf, login) {
+                this.#id = this.generateId();
+                this.#nome = nome;
+                this.#email = email;
+                this.#cpf = cpf;
+                this.#login = login;
+                this.notifications = new Notifications();
+                this.#lastActivity = new Date().toISOString();
             }
-
-            setEmail(email){
-                const isEmail = email.includes("@") && email.includes(".")
-                if (isEmail) {
-                    this.#email = email;
-                    console.log("esse email existe")
-                    return this.#email;
-                }
-                console.log("email invalido ")
-                throw new Error("Email inválido. Tente novamente.");
-
+ 
+ 
+            generateId() {
+                const min = 1;
+                const max = 20000;
+                return Math.floor(Math.random() * (max - min + 1)) + min;
             }
-
-            getIdade(){
-                return this.#idade;
+ 
+ 
+            getId() {
+                return this.#id;
             }
-
-            setIdade(idade){
-                if (idade>0){
-                    this.#idade = idade;
-                    console.log("tem idade")
-                    return this.#idade
-                }
-                console.log("nao tem idade")
-            }
-
-            getNome(){
+ 
+ 
+            getNome() {
                 return this.#nome;
             }
-
-            setNome(nome){
-
-                try {
-                    let isNome = true;
-                    const nomeArray = nome.split("")
-                    nomeArray.forEach((char)=>{
-                        if (!isNaN(char)){
-                            isNome = false;
-                            console.log("o nome possui numeros")
-                            return;
-                        }
-                    })
-                    if (isNome) {
-                        this.#nome = nome;
-                        return this.#nome;
-                        console.log("nao tem numero")
-                    }
-                    throw new Error("Email inválido. Tente novamente.");
-                } catch (error) {
-                    console.error(error.message)
-                }
-
+ 
+ 
+            showInfo() {
+                console.log(id: ${this.getId()} nome: ${this.#nome}, email: ${this.#email}, cpf: ${this.#cpf});
             }
-
+ 
+ 
+            getLastActivity() {
+                return this.#lastActivity;
+            }
+ 
+ 
+            updateActivity() {
+                this.#lastActivity = new Date().toISOString();
+            }
+ 
+ 
+            getnotifications() {
+                return this.notifications;
+            }
         }
-
-
-        pessoa1 = new Pessoa("felipe", 24, "felipefalcao2000@hotmail.com")
-        pessoa2 = new Pessoa("joao", -10, "joaohotmail")
-
-        console.log(pessoa1.getEmail())
-        console.log(pessoa1.getNome())
-        console.log(pessoa1.getIdade())
-        console.log(pessoa1.setEmail("felipefalcao2000@hotmail.com"))
-        console.log(pessoa2.getNome())
-        console.log(pessoa2.getEmail())
-        console.log(pessoa2.setIdade("-10"))
-        console.log(pessoa2.setEmail("joaohotmail"))
-
-
-
-
+ 
+ 
+        class Notifications {
+            #notifications;
+ 
+ 
+            constructor() {
+                this.#notifications = [];
+            }
+ 
+ 
+            pushNotification(message, typeMessage, userId, userName) {
+              
+                this.#notifications.push(new Notification(message, typeMessage, userId, userName));
+               
+            
+            }
+ 
+ 
+            showNotifications() {
+              this.#notifications.forEach(notification => {
+                if (!notification.isRead()) {
+                    notification.print();
+                    notification.markAsRead();
+                    }
+                });
+            
+            }
+        }
+ 
+ 
+        class Notification {
+            #message;
+            #typeMessage;
+            #isReaded;
+            #notificatedOn;
+            #notificatedBy;
+            #userId;
+            #userName;
+ 
+ 
+            constructor(message, typeMessage, notificatedBy, userId, userName) {
+                this.#message = message;
+                this.#typeMessage = typeMessage;
+                this.#isReaded = false;
+                this.#notificatedOn = new Date().toISOString();
+                this.#notificatedBy = notificatedBy;
+                this.#userId = userId;
+                this.#userName = userName;
+            }
+ 
+ 
+            print() {
+                console.log(${this.#typeMessage}: ${this.#message} - Notificado para ${this.#userId});
+            }
+ 
+ 
+            isRead() {
+                return this.#isReaded;
+            }
+ 
+ 
+            markAsRead() {
+                this.#isReaded = true;
+            }
+            
+        }
+ 
+ 
+        const system = new System("Meu Sistema");
+ 
+ 
+        const user1 = new User("Felipe Falcao", "felipe@exemplo.com", "00200200200", "felipefalcao",);
+        const user2 = new User("Pedro Henrique", "pedro@hotmail.com", "1234567890", "pedroh");
+ 
+ 
+        system.addUser(user1);
+        system.addUser(user2);
+        
+        
+        system.notifyAllUsers("Bem-vindo!", NotificationType.Success)
+        system.notifyAllUsers("Erro! Sistema em manutencao", NotificationType.Warning)
+ 
+ 
+        system.showUsers();
+        system.removeInactiveUsers(user1)
+ 
+ 
+ 
+ 
+ 
+        setTimeout(() => {
+            system.removeInactiveUsers();
+            system.showUsers();
+        }, 60000);
+ 
+ 
     </script>
 </body>
+ 
+ 
 </html>

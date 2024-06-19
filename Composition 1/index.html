@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+/*
+É o conceito de construir objetos complexos usando objetos mais simples, 
+compondo funcionalidades a partir de várias pequenas partes.
+Em JavaScript, isso pode ser feito criando objetos que possuem 
+outros objetos como propriedades.
+
+
+Herança x Compisicao
+A principal diferença entre herança e composição é que a herança é 
+uma relação do tipo "é-um", enquanto a composição é uma relação do tipo "tem-um"
+*/
+class Setup {
+    #cpu;
+    #gpu;
+    #memoria;
+    #armazenamento;
+
+    constructor(cpu, gpu, memoria, armazenamento) {
+        this.#cpu = cpu;
+        this.#gpu = gpu;
+        this.#memoria = memoria;
+        this.#armazenamento = armazenamento;
+    }
+
+    exibirConfiguracao() {
+        this.#cpu.exibirDetalhes();
+        this.#gpu.exibirDetalhes();
+        this.#memoria.exibirDetalhes();
+        this.#armazenamento.exibirDetalhes();
+    }
+}
+
+class CPU {
+    #modelo;
+    #clock;
+
+    constructor(modelo, clock) {
+        this.#modelo = modelo;
+        this.#clock = clock;
+    }
+
+    exibirDetalhes() {
+        console.log(`CPU: ${this.#modelo} com clock de ${this.#clock} GHz`);
+    }
+}
+
+class GPU {
+    #modelo;
+    #ram;
+
+    constructor(modelo, ram) {
+        this.#modelo = modelo;
+        this.#ram = ram;
+    }
+
+    exibirDetalhes() {
+        console.log(`GPU modelo: ${this.#modelo} com ${this.#ram} GB de ram`);
+    }
+}
+
+class Memoria {
+    #capacidade;
+    #tipo;
+
+    constructor(capacidade, tipo) {
+        this.#capacidade = capacidade;
+        this.#tipo = tipo;
+    }
+
+    exibirDetalhes() {
+        console.log(`memória de  ${this.#capacidade}GB, tipo ${this.#tipo}`);
+    }
+}
+
+class Armazenamento {
+    #capacidade;
+    #tipo;
+
+    constructor(capacidade, tipo) {
+        this.#capacidade = capacidade;
+        this.#tipo = tipo;
+    }
+
+    exibirDetalhes() {
+        console.log(`armazenamento de ${this.#capacidade} GB, tipo ${this.#tipo}`);
+    }
+}
+
+class Som {
+    tocar() {
+        console.log("tocando música");
+    }
+}
+
+class Rede {
+    conectar() {
+        console.log("conectado a rede");
+    }
+}
+
+class Computador {
+    constructor() {
+        const cpu = new CPU("Intel Core i9", 3.8);
+        const gpu = new GPU("NVIDIA RTX 3080", 10);
+        const memoria = new Memoria(32, "DDR4");
+        const armazenamento = new Armazenamento(1000, "SSD");
+
+        this.setup = new Setup(cpu, gpu, memoria, armazenamento);
+        this.som = new Som();
+        this.rede = new Rede();
+    }
+
+    ligar() {
+        console.log("computador ligado");
+        this.setup.exibirConfiguracao();
+    }
+
+    tocarMusica() {
+        this.som.tocar();
+    }
+
+    conectarRede() {
+        this.rede.conectar();
+    }
+}
+
+const computador = new Computador();
+
+computador.ligar();
+computador.tocarMusica();
+computador.conectarRede();
